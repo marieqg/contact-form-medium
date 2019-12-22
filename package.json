@@ -39,7 +39,7 @@
     "start:lambda": "netlify-lambda serve src/lambda",
     "build": "gatsby build && netlify-lambda build src/lambda",
     "build:app": "gatsby build",
-    "build:lambda": "netlify-lambda build src/lambda",
+    "build:lambda": "netlify-lambda build src/lambda"
     
   },
   "repository": {
