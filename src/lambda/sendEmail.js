@@ -2,6 +2,10 @@
 require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`,
 })
+const headers = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "Content-Type",
+}
 
 // Connect to our Mailgun API
 const mailgun = require("mailgun-js")
@@ -25,6 +29,7 @@ export function handler(event, context, callback) {
   mg.messages().send(mailOptions, function(error, body) {
     callback(null, {
       statusCode: 200,
+      headers,
       body: JSON.stringify(body),
     })
   })
