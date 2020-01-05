@@ -79,7 +79,7 @@ export default class Contact extends React.Component {
             onChange={this.handleChange}
             name="message"
           />
-          <Button variant="contained" color="primary">
+          <Button variant="contained" color="primary" type="submit">
             Submit
           </Button>
         </form>
