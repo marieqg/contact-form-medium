@@ -2,6 +2,11 @@ import React from "react"
 import TextField from "@material-ui/core/TextField"
 import Button from "@material-ui/core/Button"
 
+const endpoints = {
+  contact: "/.netlify/functions/sendEmail",
+}
+const axios = require("axios")
+
 export default class Contact extends React.Component {
   state = {
     name: "",
@@ -18,10 +23,41 @@ export default class Contact extends React.Component {
     this.setState(statesToUpdate)
   }
 
+  handleSubmit = e => {
+    let { name, email, message } = this.state
+    let data = { name, email, message }
+    axios.post(endpoints.contact, JSON.stringify(data)).then(response => {
+      if (response.status !== 200) {
+        this.handleError()
+      } else {
+        this.handleSuccess()
+      }
+    })
+    e.preventDefault()
+  }
+
+  handleSuccess = () => {
+    this.setState({
+      name: "",
+      email: "",
+      message: "",
+      loading: false,
+      error: false,
+    })
+  }
+
+  handleError = msg => {
+    this.setState({
+      loading: false,
+      error: true,
+      msg,
+    })
+  }
+
   render() {
     return (
       <div>
-        <form noValidate autoComplete="off">
+        <form noValidate autoComplete="off" onSubmit={this.handleSubmit}>
           <TextField
             id="standard-basic"
             label="Name"
